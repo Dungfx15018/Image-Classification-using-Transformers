@@ -1,42 +1,28 @@
-# Project Name <--- FIXME
+# Image Classification using Transformer
 
-Library Logo <--- **FIXME**
+Thử nghiệm với Colab
 
+<a href="https://colab.research.google.com/drive/1Biycga_f1sUVdzPVR7Fwfo_IogSYez0J?usp=sharing"><img src="https://storage.googleapis.com/protonx-cloud-storage/colab_favicon_256px.png" width=80> </a>
+
+Architecture Image
 <p align="center">
-    <img src='https://storage.googleapis.com/protonx-cloud-storage/transformer/protonx-transf.png' width=200 class="center">
+    <img src='https://storage.googleapis.com/protonx-cloud-storage/images/arc.PNG' class="center">
 </p>
 
-Description about your project. Why do you choose to build this?  <--- **FIXME**
-
-Slide about your project (if it's available) <--- **FIXME**
-
-Architecture Image <--- **FIXME**
 
 
-Authors:
-- Github: members github name <--- **FIXME**
-- Email: members emails <--- **FIXME**
 
-Advisors:
-- Github: advisor github name <--- **FIXME**
-- Email: advisor emails <--- **FIXME**
 
-## I.  Set up environment
-- Step 1: <--- **FIXME**
+##  Set up environment
+- Step 1: 
 
 ```python
-conda env create -f environment.yml
+create requirements.txt
 ```
 
-- Step 2: <--- **FIXME**
+- Step 2: 
 ```
-
-```
-
-- Step 3: <--- **FIXME**
-
-```
-
+pip install -r requirements.txt
 ``` 
 
 ## II.  Set up your dataset
@@ -47,80 +33,68 @@ conda env create -f environment.yml
 ## III. Training Process
 
 
-**FIXME**
-
 Training script:
 
 
-```python
 
-python train.py --epochs ${epochs} --input-lang en --target-lang vi --input-path ${path_to_en_text_file} --target-path ${path_to_vi_text_file}
-
-```
-**FIXME**
-
-Example:
 
 ```python
+!python data.py
 
-!python train.py --train-folder ${train_folder} --valid-folder ${valid_folder} --num-classes 2 --patch-size 5 --image-size 150 --lr 0.0001 --epochs 200 --num-heads 12 
-
+!python train.py --data-dir $data_dir --checkpoint $checkpoint --test-size 0.2 --gradient-accumulation-steps 4 --learning-rate 5e-5 --per-device-train-batch-size 16 --per-device-eval-batch-size 16 --max-steps 1200 --num-train-epochs 15 --adam-epsilon 1e-8 --adam-beta1 0.9  --adam-beta2 0.99  --logging-steps 20 --warmup-ratio 0.1 
 ``` 
-**FIXME**
+
 
 There are some important arguments for the script you should consider when running it:
+- `test-size`: 
+- `data-dir`: dataset
+- `checkpoint`: model pretrained
+- `gradient-accumulation-steps`:
+-`learning-rate`:
+- `per-device-train-batch-size`:
+- `per-device-eval-batch-size`:
+- `max-steps`:
+- `num-train-epochs`:
+- `adam-epsilon`:
+- `adam-beta1`:
+- `adam-beta2`:
+- `logging-steps`:
+- `warmup-ratio`:
 
-- `train-folder`: The folder of training data
-- `valid-folder`: The folder of validation data
-- ...
+## Result 
 
-## IV. Predict Process
 
-```bash
-python predict.py --test-data ${link_to_test_data}
-```
-
-## V. Result and Comparision
-
-**FIXME**
 
 Your implementation
 ```
-Epoch 7/10
-782/782 [==============================] - 261s 334ms/step - loss: 0.8315 - acc: 0.8565 - val_loss: 0.8357 - val_acc: 0.7978
-Epoch 8/10
-782/782 [==============================] - 261s 334ms/step - loss: 0.3182 - acc: 0.8930 - val_loss: 0.6161 - val_acc: 0.8047
-Epoch 9/10
-782/782 [==============================] - 261s 333ms/step - loss: 1.1965 - acc: 0.8946 - val_loss: 3.9842 - val_acc: 0.7855
-Epoch 10/10
-782/782 [==============================] - 261s 333ms/step - loss: 0.4717 - acc: 0.8878 - val_loss: 0.4894 - val_acc: 0.8262
+Epoch	Training Loss	Validation Loss	Accuracy
+1	5.012900	4.945810	0.042895
+2	4.699800	4.651641	0.403932
+3	4.278800	4.195499	0.702412
+4	3.819400	3.827306	0.765862
+5	3.496500	3.492244	0.804289
+6	3.133700	3.213509	0.831099
+7	2.878900	2.985585	0.830205
+8	2.637500	2.750561	0.848078
+9	2.452400	2.569777	0.854334
+10	2.239300	2.395381	0.878462
+11	2.063700	2.265703	0.885612
+12	1.943000	2.162457	0.873994
+13	1.848700	2.085841	0.876675
+14	1.765900	1.983207	0.890974
+15	1.709900	1.948199	0.892761
+16	1.667100	1.910196	0.895442
+17	1.623400	1.896973	0.894548
 
 ```
 
-**FIXME**
-
-Other architecture
-
-```
-Epoch 6/10
-391/391 [==============================] - 115s 292ms/step - loss: 0.1999 - acc: 0.9277 - val_loss: 0.4719 - val_acc: 0.8130
-Epoch 7/10
-391/391 [==============================] - 114s 291ms/step - loss: 0.1526 - acc: 0.9494 - val_loss: 0.5224 - val_acc: 0.8318
-Epoch 8/10
-391/391 [==============================] - 115s 293ms/step - loss: 0.1441 - acc: 0.9513 - val_loss: 0.5811 - val_acc: 0.7875
-```
-
-Your comments about these results <--- **FIXME**
 
 
-## VI. Running Test
+## Authors:
+- Github: https://github.com/Dungfx15018
+- Email: dungtrandinh513@gmail.com
 
-When you want to modify the model, you need to run the test to make sure your change does not affect the whole system.
-
-In the `./folder-name` **(FIXME)** folder please run:
-
-```bash
-pytest
-```
-
+## Advisors:
+- Github: https://github.com/bangoc123
+- Email: protonxai@gmail.com
 
