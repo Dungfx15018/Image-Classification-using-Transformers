@@ -1,4 +1,5 @@
 from datasets import load_dataset
+from datasets import load_metric
 import datasets
 import torch
 
@@ -11,10 +12,11 @@ def collate_fn(examples):
     return {"pixel_values": pixel_values, "labels": labels}
 
 
-def compute_metrics(eval_pred):
-    predictions, labels = eval_pred
-    predictions = np.argmax(predictions, axis=1)
-    return accuracy_score(predictions=predictions, references=labels)
+
+
+metric = load_metric("accuracy")
+def compute_metrics(p):
+    return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
 class DataProcessing():
     def __init__(self, data_dir, test_size=0.4):
 
