@@ -15,7 +15,6 @@ if __name__ == "__main__":
     # Arguments users used when running command lines
     parser.add_argument("--data-dir", default='fcakyon/pokemon-classification', type = str)
     parser.add_argument("--checkpoint", default='google/vit-base-patch16-224-in21k', type = str)
-    parser.add_argument("--split", default='train', type = str)
     parser.add_argument("--test-size", default=0.2, type=float)
     parser.add_argument("--gradient-accumulation-steps", default=4, type=int)
     parser.add_argument("--learning-rate", default=5e-5, type=float)

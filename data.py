@@ -1,7 +1,7 @@
 from datasets import load_dataset
 import datasets
 import torch
-import evaluate
+
 import numpy as np
 from sklearn.metrics import accuracy_score
 
