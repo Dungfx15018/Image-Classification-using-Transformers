@@ -61,38 +61,45 @@ There are some important arguments for the script you should consider when runni
 - `logging-steps`:
 - `warmup-ratio`:
 
+
 ## Result 
 
 
 
 Your implementation
 ```
-Epoch	Training Loss	Validation Loss	Accuracy
-1	5.012900	4.945810	0.042895
-2	4.699800	4.651641	0.403932
-3	4.278800	4.195499	0.702412
-4	3.819400	3.827306	0.765862
-5	3.496500	3.492244	0.804289
-6	3.133700	3.213509	0.831099
-7	2.878900	2.985585	0.830205
-8	2.637500	2.750561	0.848078
-9	2.452400	2.569777	0.854334
-10	2.239300	2.395381	0.878462
-11	2.063700	2.265703	0.885612
-12	1.943000	2.162457	0.873994
-13	1.848700	2.085841	0.876675
-14	1.765900	1.983207	0.890974
-15	1.709900	1.948199	0.892761
-16	1.667100	1.910196	0.895442
-17	1.623400	1.896973	0.894548
+Epoch	Training Loss	Validation Loss	            Accuracy
+1	        5.012900	    4.945810	            0.042895
+2	        4.699800	    4.651641	            0.403932
+3	        4.278800	    4.195499	            0.702412
+4	        3.819400	    3.827306	            0.765862
+5	        3.496500	    3.492244	            0.804289
+6	        3.133700	    3.213509	            0.831099
+7	        2.878900	    2.985585	            0.830205
+8	        2.637500	    2.750561	            0.848078
+9	        2.452400	    2.569777	            0.854334
+10	        2.239300	    2.395381	            0.878462
+11	        2.063700	    2.265703	            0.885612
+12	        1.943000	    2.162457	            0.873994
+13	        1.848700	    2.085841	            0.876675
+14	        1.765900	    1.983207	            0.890974
+15	        1.709900	    1.948199	            0.892761
+16	        1.667100	    1.910196	            0.895442
+17	        1.623400	    1.896973	            0.894548
 
 ```
 
 
+## Testing model with new image
+```python
+!python predict.py --dir-model 'pokemon_models/checkpoint-1610' --image-path '0cfe57a5bf674650b0de0c381df13ca0_jpg.rf.cf29339aa61d57131478f066ba7cceba.jpg'  --checkpoint  'google/vit-base-patch16-224-in21k' --data-dir 'fcakyon/pokemon-classification'  --test-size 0.2 
+```
 
 ## Authors:
 - Github: https://github.com/Dungfx15018
 - Email: dungtrandinh513@gmail.com
+- Github: https://github.com/EveTLynn
+- Email: linhtong1201@gmail.com
 
 ## Advisors:
 - Github: https://github.com/bangoc123
