@@ -2,9 +2,9 @@
 import os
 import data
 from argparse import ArgumentParser
-from transformers import ViTImageProcessor,Trainer,ViTForImageClassification,TrainingArguments
+from transformers import Trainer,ViTImageProcessor,ViTForImageClassification,TrainingArguments
 import torch
-from torchvision.transforms import RandomResizedCrop, Compose, Normalize, ToTensor
+
 
 from torchvision import transforms
 os.environ["WANDB_DISABLED"] = "true"
@@ -36,17 +36,17 @@ if __name__ == "__main__":
     # FIXME
     # Project Description
 
-    print('---------------------Welcome to ${name}-------------------')
-    print('Github: ${account}')
-    print('Email: ${email}')
+    print('---------------------Welcome to ProtonX Image Classification Transformer-------------------')
+    print('Github: Dungfx15018')
+    print('Email: dungtrandinh513@gmail.com')
     print('---------------------------------------------------------------------')
-    print('Training ${name} model with hyper-params:') # FIXME
+    print('Training Image Classification model with hyper-params:')
     print('===========================')
 
     data_dir = args.data_dir
     checkpoint = args.checkpoint
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    image_processor = ViTImageProcessor.from_pretrained(checkpoint)
+    image_processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224-in21k')
 
 
     datasets = data.DataProcessing(data_dir=data_dir, test_size= args.test_size)
@@ -56,22 +56,8 @@ if __name__ == "__main__":
     label2id = datasets.get_label2id()
     id2label = datasets.get_id2label()
 
-    normalize = Normalize(mean=image_processor.image_mean, std=image_processor.image_std)
-    size = (
-        image_processor.size["shortest_edge"]
-        if "shortest_edge" in image_processor.size
-        else (image_processor.size["height"], image_processor.size["width"])
-    )
-    _transforms = Compose([RandomResizedCrop(size), ToTensor(), normalize])
+    dataset = dataset.with_transform(data.transforms)
 
-    def transforms(examples):
-        examples["pixel_values"] = [_transforms(img.convert("RGB")) for img in examples["image"]]
-        del examples["image"]
-        return examples
-
-
-    dataset = dataset.with_transform(transforms)
-    #print(dataset['train'])
 
 
     model = ViTForImageClassification.from_pretrained(
