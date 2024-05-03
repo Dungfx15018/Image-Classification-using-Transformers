@@ -1,10 +1,26 @@
 from datasets import load_dataset
-from datasets import load_metric
 import datasets
 import torch
-
 import numpy as np
 from sklearn.metrics import accuracy_score
+from transformers import ViTImageProcessor
+from torchvision.transforms import RandomResizedCrop, Compose, Normalize, ToTensor
+
+image_processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224-in21k')
+
+normalize = Normalize(mean=image_processor.image_mean, std=image_processor.image_std)
+size = (
+    image_processor.size["shortest_edge"]
+    if "shortest_edge" in image_processor.size
+    else (image_processor.size["height"], image_processor.size["width"])
+)
+_transforms = Compose([RandomResizedCrop(size), ToTensor(), normalize])
+
+
+def transforms(examples):
+    examples["pixel_values"] = [_transforms(img.convert("RGB")) for img in examples["image"]]
+    del examples["image"]
+    return examples
 
 def collate_fn(examples):
     pixel_values = torch.stack([example["pixel_values"] for example in examples])
@@ -12,11 +28,10 @@ def collate_fn(examples):
     return {"pixel_values": pixel_values, "labels": labels}
 
 
-
-
-metric = load_metric("accuracy")
-def compute_metrics(p):
-    return metric.compute(predictions=np.argmax(p.predictions, axis=1), references=p.label_ids)
+def compute_metrics(eval_pred):
+    predictions, labels = eval_pred
+    predictions = np.argmax(predictions, axis=1)
+    return dict(accuracy=accuracy_score(predictions, labels))
 class DataProcessing():
     def __init__(self, data_dir, test_size=0.4):
 
@@ -29,12 +44,10 @@ class DataProcessing():
         self.load_data()
 
     def load_data(self):
-        """
-        Loads the Pokemon dataset and performs basic preprocessing.
-        """
+
         self.data = load_dataset(self.data_dir, "full")
 
-        # Combine train/validation/test sets if split is "train"
+
 
         self.data["train"] = datasets.concatenate_datasets([self.data["train"], self.data["validation"]])
 
@@ -42,7 +55,7 @@ class DataProcessing():
         self.data = self.data['train'].train_test_split(test_size=self.test_size)
         self.data = self.data['train'].train_test_split(test_size=self.test_size)
 
-        # Extract labels and create mappings
+
         self.labels = self.data['train'].features["labels"].names
         self.label2id = {label: str(i) for i, label in enumerate(self.labels)}
         self.id2label = {str(i): label for i, label in enumerate(self.labels)}
