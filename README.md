@@ -97,6 +97,8 @@ Epoch	Training Loss	Validation Loss	            Accuracy
 
 [{'score': 0.7122378349304199, 'label': 'Alakazam'}, {'score': 0.03247630596160889, 'label': 'Kadabra'}, {'score': 0.0074781812727451324, 'label': 'Abra'}, {'score': 0.0038069335278123617, 'label': 'Farfetchd'}, {'score': 0.0037275038193911314, 'label': 'Beedrill'}]
 ```
+<a href="https://huggingface.co/ILT37/Image-classification"><img src="https://storage.cloud.google.com/favicon_huggingface/6308b81d61b3e2a522f01466.png" width=80> </a>
+
 
 ## Authors:
 - Github: https://github.com/Dungfx15018
