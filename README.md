@@ -41,7 +41,7 @@ Training script:
 ```python
 !python data.py
 
-!python train.py --data-dir $data_dir --checkpoint $checkpoint --test-size 0.2 --gradient-accumulation-steps 4 --learning-rate 5e-5 --per-device-train-batch-size 16 --per-device-eval-batch-size 16 --max-steps 1200 --num-train-epochs 15 --adam-epsilon 1e-8 --adam-beta1 0.9  --adam-beta2 0.99  --logging-steps 20 --warmup-ratio 0.1 
+!python train.py --data-dir $data_dir --checkpoint $checkpoint --test-size 0.2 --gradient-accumulation-steps 4 --learning-rate 5e-5 --per-device-train-batch-size 16 --per-device-eval-batch-size 16 --max-steps 2000 --num-train-epochs 20 --adam-epsilon 1e-8 --adam-beta1 0.9  --adam-beta2 0.99  --logging-steps 20 --warmup-ratio 0.1 
 ``` 
 
 
@@ -50,7 +50,7 @@ There are some important arguments for the script you should consider when runni
 - `data-dir`: dataset
 - `checkpoint`: model pretrained
 - `gradient-accumulation-steps`:
--`learning-rate`:
+- `learning-rate`:
 - `per-device-train-batch-size`:
 - `per-device-eval-batch-size`:
 - `max-steps`:
