@@ -53,7 +53,7 @@ class DataProcessing():
 
         self.data["train"] = datasets.concatenate_datasets([self.data["train"], self.data["test"]])
         self.data = self.data['train'].train_test_split(test_size=self.test_size)
-        self.data = self.data['train'].train_test_split(test_size=self.test_size)
+        self.data = self.data['train'].train_test_split(test_size=self.test_size).shuffle(self.data)
 
 
         self.labels = self.data['train'].features["labels"].names
