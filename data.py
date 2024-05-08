@@ -48,7 +48,7 @@ class DataProcessing():
         self.data = load_dataset(self.data_dir, "full")
 
 
-
+        """
         self.data["train"] = datasets.concatenate_datasets([self.data["train"], self.data["validation"]])
 
         self.data["train"] = datasets.concatenate_datasets([self.data["train"], self.data["test"]])
@@ -56,11 +56,11 @@ class DataProcessing():
         self.data = self.data['train'].train_test_split(test_size=self.test_size)
         self.data = self.data['train'].train_test_split(test_size=self.test_size).shuffle()
 
-
+        """
         self.labels = self.data['train'].features["labels"].names
         self.label2id = {label: str(i) for i, label in enumerate(self.labels)}
         self.id2label = {str(i): label for i, label in enumerate(self.labels)}
-
+    
     def get_data(self):
 
         return self.data
